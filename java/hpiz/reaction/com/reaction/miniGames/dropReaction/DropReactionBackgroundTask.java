@@ -71,9 +71,9 @@ public class DropReactionBackgroundTask extends AsyncTask<String, Integer, Strin
         gActivity.drop();
         Log.v("backgroundTask", "Setting white");
         if (result.equals("GAME:NEXTSTEP")) {
-            gActivity.setTopRed();
-            gActivity.setBottomBlue();
-            gActivity.startButtonListeners();
+            //gActivity.setTopRed();
+            //gActivity.setBottomBlue();
+            //gActivity.startButtonListeners();
         } else if (result.equals("SLEPT")) {
             gActivity.runSingleRound();
 
