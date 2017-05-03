@@ -1,5 +1,6 @@
 package hpiz.reaction.com.reaction.miniGames.dropReaction;
 
+import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,7 +42,7 @@ public class DropReaction extends AppCompatActivity {
     private Button bToMainMenuButton;
     private TextView bScoreText;
     private TextView rScoreText;
-    private ImageView rulerImage;
+    private ImageView topRulerImage;
     private int winningScore = 10;
     private int bFloor;
     private int tFloor;
@@ -50,6 +51,7 @@ public class DropReaction extends AppCompatActivity {
     private float tVel;
     private float bVel;
     private int screenHeight;
+    private ImageView bottomRulerImage;
 
     public DropReaction() {
 
@@ -102,9 +104,9 @@ public class DropReaction extends AppCompatActivity {
         if (redScore < winningScore) {
             if (blueScore < winningScore) {
                 updateScores();
-                clearScreen();
 
-                setEarlyListeners();
+
+                //setEarlyListeners();
                 runGame = new DropReactionBackgroundTask(this);
                 runGame.execute("RUN");
             } else {
@@ -117,10 +119,7 @@ public class DropReaction extends AppCompatActivity {
     }
 
     private void clearScreen() {
-        setTopBlack();
-        setBottomBlack();
-        topHalf.setText("");
-        bottomHalf.setText("");
+
     }
 
     public void setEarlyListeners() {
@@ -314,13 +313,12 @@ public class DropReaction extends AppCompatActivity {
         pAgainButton = (Button) super.findViewById(playAgainButton);
         pAgainButton.setVisibility(View.GONE);
         pAgainButton.setOnClickListener(null);
-        rulerImage = (ImageView) findViewById(R.id.ruler);
+        topRulerImage = (ImageView) findViewById(R.id.topsRuler);
+        bottomRulerImage = (ImageView) findViewById(R.id.bottomsRuler);
         bToMainMenuButton = (Button) findViewById(backToMainMenuButton);
 
         bToMainMenuButton.setVisibility(View.GONE);
         bToMainMenuButton.setOnClickListener(null);
-        topHalf = (TextView) findViewById(R.id.topHalf);
-        bottomHalf = (TextView) findViewById(R.id.bottomHalf);
         rScoreText = (TextView) findViewById(redScoreText);
         bScoreText = (TextView) findViewById(blueScoreText);
         rScoreText.setTextColor(Color.WHITE);
@@ -336,14 +334,36 @@ public class DropReaction extends AppCompatActivity {
 
     public void drop() {
         ValueAnimator va = ValueAnimator.ofFloat(0, screenHeight + 150);
-        va.setInterpolator(new AccelerateInterpolator());
-        va.setDuration(800);
+        va.setDuration(5000);
+        va.setInterpolator(new AccelerateInterpolator(1.99999F));
         va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 Log.v(TAG, "Moving ruler to y=" + animation.getAnimatedValue());
-                rulerImage.setTranslationY((Float) animation.getAnimatedValue());
+                topRulerImage.setTranslationY(-(Float) animation.getAnimatedValue());
+                bottomRulerImage.setTranslationY((Float) animation.getAnimatedValue());
+            }
+        });
+        va.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                nextRound();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
             }
         });
         va.start();
@@ -375,10 +395,10 @@ public class DropReaction extends AppCompatActivity {
         tVel = 0;
         bVel = 0;
 
-        //ObjectAnimator oa = ObjectAnimator.ofInt(rulerImage,"y",screenHeight);
+        //ObjectAnimator oa = ObjectAnimator.ofInt(topRulerImage,"y",screenHeight);
         //oa.setDuration(1000);
         //oa.start();
-//        rulerImage.animate().translationY((screenHeight/2)).withLayer();
+//        topRulerImage.animate().translationY((screenHeight/2)).withLayer();
 
 
     }
