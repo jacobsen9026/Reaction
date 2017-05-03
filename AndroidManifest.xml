@@ -70,6 +70,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="hpiz.reaction.com.reaction.miniGames.dropReaction.DropReaction" />
         </activity>
+        <activity
+            android:name=".miniGames.wacAMoleReaction.WacAMoleReaction"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="WacAMole"
+            android:parentActivityName=".GameActivity"
+            android:theme="@style/FullscreenTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="hpiz.reaction.com.reaction.miniGames.wacAMoleReaction.WacAMoleReaction" />
+        </activity>
     </application>
 
 </manifest>
