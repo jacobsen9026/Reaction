@@ -12,9 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import hpiz.reaction.com.reaction.miniGames.dropReaction.DropReaction;
 import hpiz.reaction.com.reaction.miniGames.surpriseNumberedReaction.SurpriseNumberedReaction;
 import hpiz.reaction.com.reaction.miniGames.surpriseReaction.SurpriseReaction;
+import hpiz.reaction.com.reaction.miniGames.wacAMoleReaction.WacAMoleReaction;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -76,7 +76,7 @@ public class GameActivity extends AppCompatActivity {
                 break;
 
             case 0:
-                i = new Intent(GameActivity.this, DropReaction.class);
+                i = new Intent(GameActivity.this, WacAMoleReaction.class);
                 gameProgress++;
                 //sp.edit().putInt("gameProgress",gameProgress).commit();
                 startActivity(i);
@@ -112,5 +112,5 @@ public class GameActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
     }
-    
+
 }
