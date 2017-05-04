@@ -73,7 +73,7 @@ public class DropReactionBackgroundTask extends AsyncTask<String, Integer, Strin
         if (result.equals("GAME:NEXTSTEP")) {
             //gActivity.setTopRed();
             //gActivity.setBottomBlue();
-            //gActivity.startButtonListeners();
+            //gActivity.startWinningWacListeners();
         } else if (result.equals("SLEPT")) {
             gActivity.runSingleRound();
 

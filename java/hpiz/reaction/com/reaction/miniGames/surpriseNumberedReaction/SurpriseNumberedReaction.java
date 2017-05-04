@@ -255,7 +255,7 @@ public class SurpriseNumberedReaction extends AppCompatActivity {
                 if (bottomHalf.hasOnClickListeners()) {
                     bottomHalf.setOnClickListener(null);
                 }
-                nextRound();
+                waitForWin();
             }
         });
         */
@@ -268,7 +268,7 @@ public class SurpriseNumberedReaction extends AppCompatActivity {
                 if (topHalf.hasOnClickListeners()) {
                     topHalf.setOnClickListener(null);
                 }
-                nextRound();
+                waitForWin();
             }
         });
         */
