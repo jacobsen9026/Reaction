@@ -48,6 +48,8 @@ public class CatchReaction extends AppCompatActivity {
     private float bVel;
     private int screenHeight;
     private ImageView bottomRulerImage;
+    private float topPosition;
+    private float bottomPosition;
 
     public CatchReaction() {
 
@@ -63,7 +65,7 @@ public class CatchReaction extends AppCompatActivity {
 
     public void run() {
 
-        setContentView(R.layout.minigame_dropreaction);
+        setContentView(R.layout.minigame_catchreaction);
 
         Log.v(TAG, " setting game layout");
 
@@ -318,8 +320,8 @@ public class CatchReaction extends AppCompatActivity {
         pAgainButton = (Button) findViewById(R.id.playAgainButton);
         pAgainButton.setVisibility(View.GONE);
         pAgainButton.setOnClickListener(null);
-        topRulerImage = (ImageView) findViewById(R.id.topsRuler);
-        bottomRulerImage = (ImageView) findViewById(R.id.bottomsRuler);
+        topRulerImage = (ImageView) findViewById(R.id.topBall1);
+        bottomRulerImage = (ImageView) findViewById(R.id.bottomBall1);
         bToMainMenuButton = (Button) findViewById(R.id.backToMainMenuButton);
 
         bToMainMenuButton.setVisibility(View.GONE);
@@ -338,6 +340,10 @@ public class CatchReaction extends AppCompatActivity {
     }
 
     public void drop() {
+        tVel = 0;
+        bVel = 0;
+        topPosition = 0;
+        bottomPosition = 0;
         ValueAnimator va = ValueAnimator.ofFloat(0, screenHeight + 150);
         va.setDuration(5000);
         va.setInterpolator(new AccelerateInterpolator(1.99999F));
@@ -354,8 +360,23 @@ public class CatchReaction extends AppCompatActivity {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 //Log.v(TAG, "Moving ruler to y=" + animation.getAnimatedValue());
-                topRulerImage.setTranslationY(-(Float) animation.getAnimatedValue());
-                bottomRulerImage.setTranslationY((Float) animation.getAnimatedValue());
+                tVel = (250 - ((Float) animation.getAnimatedValue()));
+                tVel = tVel * 0.5F;
+                bVel = (-250 + ((Float) animation.getAnimatedValue()));
+                bVel = bVel * 0.5F;
+                topPosition = topPosition + tVel;
+                bottomPosition = bottomPosition + bVel;
+                Log.v(TAG, "Bottom Position=" + String.valueOf(bottomPosition));
+
+                if (bottomPosition > 0) {
+
+                    attemptCatch();
+
+                }
+
+                topRulerImage.setTranslationY(topPosition);
+                bottomRulerImage.setTranslationY(bottomPosition);
+
             }
         });
         va.addListener(new Animator.AnimatorListener() {
@@ -380,6 +401,10 @@ public class CatchReaction extends AppCompatActivity {
             }
         });
         va.start();
+    }
+
+    private void attemptCatch() {
+
     }
 
     private void noOneCaught() {
