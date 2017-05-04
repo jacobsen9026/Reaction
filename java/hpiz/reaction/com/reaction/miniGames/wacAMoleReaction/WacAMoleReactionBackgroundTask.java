@@ -82,8 +82,6 @@ public class WacAMoleReactionBackgroundTask extends AsyncTask<String, Integer, S
         Log.v(TAG, "Setting white");
         if (result.equals("GAME:NEXTSTEP")) {
             gActivity.pickMole();
-            gActivity.setTop();
-            gActivity.setBottom();
             gActivity.startWinningWacListeners();
             gActivity.waitForWin();
             //gActivity.startWinningWacListeners();

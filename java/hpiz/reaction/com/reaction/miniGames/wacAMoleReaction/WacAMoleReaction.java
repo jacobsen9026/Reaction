@@ -311,12 +311,4 @@ public class WacAMoleReaction extends AppCompatActivity {
     }
 
 
-    public void setBottom() {
-
-
-    }
-
-    public void setTop() {
-
-    }
 }
