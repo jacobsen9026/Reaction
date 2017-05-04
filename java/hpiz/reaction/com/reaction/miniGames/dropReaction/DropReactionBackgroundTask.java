@@ -43,7 +43,7 @@ public class DropReactionBackgroundTask extends AsyncTask<String, Integer, Strin
 */
 
         if (params[0].equals("SLEEP:1000")) {
-            Log.v("backgroundTask", "Running background sleep");
+            Log.v("DropBackgroundTask", "Running background sleep");
             try {
                 Thread.sleep(1500);
             } catch (InterruptedException e) {

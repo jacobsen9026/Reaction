@@ -188,6 +188,10 @@ public class SurpriseReaction extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (runGame != null) {
+            runGame.cancel(true);
+            runGame = null;
+        }
         Intent i = new Intent(SurpriseReaction.this, GameActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
