@@ -17,7 +17,6 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import hpiz.reaction.com.reaction.GameActivity;
-import hpiz.reaction.com.reaction.MainMenuActivity;
 import hpiz.reaction.com.reaction.R;
 
 import static hpiz.reaction.com.reaction.R.id.backToMainMenuButton;
@@ -146,6 +145,7 @@ public class WacAMoleReaction extends AppCompatActivity {
     }
 
     public void startWinningWacListeners() {
+
         Log.v(TAG, "Setup Listeners");
         topMole.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -155,9 +155,14 @@ public class WacAMoleReaction extends AppCompatActivity {
                 if (action == MotionEvent.ACTION_UP) {
                     Log.v(TAG, "topMole released");
                     topScore++;
+
                     updateScores();
                     killWinListeners();
                     return true;
+                } else if (action == MotionEvent.ACTION_POINTER_UP) {
+                    bottomScore++;
+                    updateScores();
+                    killWinListeners();
                 }
                 return true;
             }
@@ -174,6 +179,10 @@ public class WacAMoleReaction extends AppCompatActivity {
                     updateScores();
                     killWinListeners();
                     return true;
+                } else if (action == MotionEvent.ACTION_POINTER_UP) {
+                    topScore++;
+                    updateScores();
+                    killWinListeners();
                 }
                 return true;
             }
@@ -203,7 +212,7 @@ public class WacAMoleReaction extends AppCompatActivity {
         bToMainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(WacAMoleReaction.this, MainMenuActivity.class);
+                Intent i = new Intent(WacAMoleReaction.this, GameActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
