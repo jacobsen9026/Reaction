@@ -17,7 +17,6 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import hpiz.reaction.com.reaction.GameActivity;
-import hpiz.reaction.com.reaction.MainMenuActivity;
 import hpiz.reaction.com.reaction.R;
 
 import static android.content.ContentValues.TAG;
@@ -343,7 +342,7 @@ public class SurpriseNumberedReaction extends AppCompatActivity {
         bToMainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(SurpriseNumberedReaction.this, MainMenuActivity.class);
+                Intent i = new Intent(SurpriseNumberedReaction.this, GameActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
