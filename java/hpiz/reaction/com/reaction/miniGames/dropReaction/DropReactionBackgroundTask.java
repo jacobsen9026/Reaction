@@ -5,6 +5,8 @@ import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by cjacobsen on 5/1/2017.
@@ -43,21 +45,25 @@ public class DropReactionBackgroundTask extends AsyncTask<String, Integer, Strin
         if (params[0].equals("SLEEP:1000")) {
             Log.v("backgroundTask", "Running background sleep");
             try {
-                Thread.sleep(500);
+                Thread.sleep(1500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             return "SLEPT";
         } else {
-            for (int x = 0; x < 100; x++) {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-                gActivity.stepDrop(x);
-                onProgressUpdate(x);
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            Random r = new Random();
+            r.setSeed((long) 15);
+            int randomNum = ThreadLocalRandom.current().nextInt(0, 4999 + 1);
+            try {
+                Thread.sleep((long) randomNum);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
             return "GAME:NEXTSTEP";
         }
@@ -68,9 +74,10 @@ public class DropReactionBackgroundTask extends AsyncTask<String, Integer, Strin
     }
 
     protected void onPostExecute(String result) {
-        gActivity.drop();
+
         Log.v("backgroundTask", "Setting white");
         if (result.equals("GAME:NEXTSTEP")) {
+            gActivity.drop();
             //gActivity.setTopRed();
             //gActivity.setBottomBlue();
             //gActivity.startWinningWacListeners();

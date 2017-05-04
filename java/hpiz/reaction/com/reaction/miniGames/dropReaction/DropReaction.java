@@ -101,12 +101,17 @@ public class DropReaction extends AppCompatActivity {
     }
 
     protected void runSingleRound() {
+
         if (redScore < winningScore) {
             if (blueScore < winningScore) {
                 updateScores();
-
+                topRulerImage.setTranslationY(0);
+                bottomRulerImage.setTranslationY(0);
 
                 //setEarlyListeners();
+                if (runGame != null) {
+                    runGame.cancel(true);
+                }
                 runGame = new DropReactionBackgroundTask(this);
                 runGame.execute("RUN");
             } else {
@@ -336,11 +341,19 @@ public class DropReaction extends AppCompatActivity {
         ValueAnimator va = ValueAnimator.ofFloat(0, screenHeight + 150);
         va.setDuration(5000);
         va.setInterpolator(new AccelerateInterpolator(1.99999F));
+        /*
+        va.setInterpolator(new TimeInterpolator() {
+            @Override
+            public float getInterpolation(float input) {
+                return (float) (0.098*input*input);
+            }
+        });
+        */
         va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                Log.v(TAG, "Moving ruler to y=" + animation.getAnimatedValue());
+                //Log.v(TAG, "Moving ruler to y=" + animation.getAnimatedValue());
                 topRulerImage.setTranslationY(-(Float) animation.getAnimatedValue());
                 bottomRulerImage.setTranslationY((Float) animation.getAnimatedValue());
             }
@@ -353,7 +366,7 @@ public class DropReaction extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                nextRound();
+                noOneCaught();
             }
 
             @Override
@@ -367,6 +380,11 @@ public class DropReaction extends AppCompatActivity {
             }
         });
         va.start();
+    }
+
+    private void noOneCaught() {
+
+        nextRound();
     }
 
     public void stepDrop(int x) {

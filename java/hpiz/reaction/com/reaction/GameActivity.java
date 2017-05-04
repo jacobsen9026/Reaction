@@ -9,9 +9,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
+import hpiz.reaction.com.reaction.miniGames.dropReaction.DropReaction;
 import hpiz.reaction.com.reaction.miniGames.surpriseNumberedReaction.SurpriseNumberedReaction;
 import hpiz.reaction.com.reaction.miniGames.surpriseReaction.SurpriseReaction;
 import hpiz.reaction.com.reaction.miniGames.wacAMoleReaction.WacAMoleReaction;
@@ -21,16 +20,8 @@ import hpiz.reaction.com.reaction.miniGames.wacAMoleReaction.WacAMoleReaction;
  * status bar and navigation/system bar) with user interaction.
  */
 public class GameActivity extends AppCompatActivity {
-    public int redScore;
-    public int blueScore;
     private ConstraintLayout contentContainer;
-    private Button playAgainButton;
-    private Button backToMainMenuButton;
-    private TextView redScoreText;
-    private TextView blueScoreText;
     private String TAG = "GameActivity";
-    private TextView topHalf;
-    private TextView bottomHalf;
     private int gameProgress;
     private SharedPreferences sp;
 
@@ -61,28 +52,33 @@ public class GameActivity extends AppCompatActivity {
         Intent i;
         Log.v(TAG, "GameProgress=" + String.valueOf(gameProgress));
         switch (gameProgress) {
-            case 2:
+            case 3:
                 i = new Intent(GameActivity.this, SurpriseReaction.class);
                 gameProgress++;
                 Log.v(TAG, "GameProgress=" + String.valueOf(gameProgress));
                 //sp.edit().putInt("gameProgress",gameProgress).commit();
                 startActivity(i);
                 break;
-            case 1:
+            case 2:
                 i = new Intent(GameActivity.this, SurpriseNumberedReaction.class);
                 gameProgress++;
                 //sp.edit().putInt("gameProgress",gameProgress).commit();
                 startActivity(i);
                 break;
 
-            case 0:
+            case 1:
                 i = new Intent(GameActivity.this, WacAMoleReaction.class);
                 gameProgress++;
                 //sp.edit().putInt("gameProgress",gameProgress).commit();
                 startActivity(i);
                 break;
-
-            case 3:
+            case 0:
+                i = new Intent(GameActivity.this, DropReaction.class);
+                gameProgress++;
+                //sp.edit().putInt("gameProgress",gameProgress).commit();
+                startActivity(i);
+                break;
+            case 4:
                 i = new Intent(GameActivity.this, MainMenuActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 //sp.edit().putInt("gameProgress",gameProgress).commit();
