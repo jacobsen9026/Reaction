@@ -125,7 +125,7 @@ public class WacAMoleReaction extends AppCompatActivity {
         pAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                runGame();
+                runGameAgain();
             }
         });
         bToMainMenuButton.setVisibility(View.VISIBLE);
@@ -190,7 +190,7 @@ public class WacAMoleReaction extends AppCompatActivity {
 
     }
 
-    public void runGame() {
+    public void runGameAgain() {
         setContentView(R.layout.minigame_wacamolereaction);
         Log.v(TAG, " setting game layout");
         hide();
@@ -205,7 +205,7 @@ public class WacAMoleReaction extends AppCompatActivity {
         pAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                runGame();
+                runGameAgain();
             }
         });
         bToMainMenuButton.setVisibility(View.VISIBLE);
