@@ -80,6 +80,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="hpiz.reaction.com.reaction.miniGames.wacAMoleReaction.WacAMoleReaction" />
         </activity>
+        <activity
+            android:name=".miniGames.catchReaction.CatchReaction"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="CatchReaction"
+            android:parentActivityName=".GameActivity"
+            android:theme="@style/FullscreenTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="hpiz.reaction.com.reaction.miniGames.catchReaction.CatchReaction" />
+        </activity>
     </application>
 
 </manifest>
