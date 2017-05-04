@@ -182,6 +182,17 @@ public class SurpriseNumberedReaction extends AppCompatActivity {
     }
 
     public void redWonGame() {
+        showButtons();
+        topHalf.setOnClickListener(null);
+        bottomHalf.setOnClickListener(null);
+        topHalf.setBackgroundColor(Color.RED);
+        bottomHalf.setBackgroundColor(Color.RED);
+
+        bottomHalf.setText("You lost to Red " + String.valueOf(redScore) + " to " + String.valueOf(blueScore) + ".");
+        topHalf.setText("You beat Blue " + String.valueOf(redScore) + " to " + String.valueOf(blueScore) + ".");
+    }
+
+    private void showButtons() {
         pAgainButton.setVisibility(View.VISIBLE);
         pAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,16 +204,11 @@ public class SurpriseNumberedReaction extends AppCompatActivity {
         bToMainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(SurpriseNumberedReaction.this, GameActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
             }
         });
-        topHalf.setOnClickListener(null);
-        bottomHalf.setOnClickListener(null);
-        topHalf.setBackgroundColor(Color.RED);
-        bottomHalf.setBackgroundColor(Color.RED);
-
-        bottomHalf.setText("You lost to Red " + String.valueOf(redScore) + " to " + String.valueOf(blueScore) + ".");
-        topHalf.setText("You beat Blue " + String.valueOf(redScore) + " to " + String.valueOf(blueScore) + ".");
     }
 
     public void startButtonListeners() {
@@ -331,22 +337,7 @@ public class SurpriseNumberedReaction extends AppCompatActivity {
 
 
     public void blueWonGame() {
-        pAgainButton.setVisibility(View.VISIBLE);
-        pAgainButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                runGame();
-            }
-        });
-        bToMainMenuButton.setVisibility(View.VISIBLE);
-        bToMainMenuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(SurpriseNumberedReaction.this, GameActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
+        showButtons();
         topHalf.setOnClickListener(null);
         bottomHalf.setOnClickListener(null);
         topHalf.setBackgroundColor(Color.BLUE);

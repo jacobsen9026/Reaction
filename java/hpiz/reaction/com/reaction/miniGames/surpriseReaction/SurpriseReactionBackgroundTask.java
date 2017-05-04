@@ -42,19 +42,31 @@ public class SurpriseReactionBackgroundTask extends AsyncTask<String, Integer, S
 */
         Log.v("backgroundTask", "Running background task");
         if (params[0].equals("SLEEP:1000")) {
+            if (this.isCancelled()) {
+                return "CANCEL";
+            }
             Log.v("backgroundTask", "Running background sleep");
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            if (this.isCancelled()) {
+                return "CANCEL";
+            }
             return "SLEPT";
         } else {
             Log.v("backgroundTask", "Running background game wait");
+            if (this.isCancelled()) {
+                return "CANCEL";
+            }
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+            if (this.isCancelled()) {
+                return "CANCEL";
             }
             Random r = new Random();
             r.setSeed((long) 15);
@@ -64,7 +76,9 @@ public class SurpriseReactionBackgroundTask extends AsyncTask<String, Integer, S
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
+            if (this.isCancelled()) {
+                return "CANCEL";
+            }
             return "GAME:NEXTSTEP";
         }
     }
@@ -82,6 +96,9 @@ public class SurpriseReactionBackgroundTask extends AsyncTask<String, Integer, S
             gActivity.startButtonListeners();
         } else if (result.equals("SLEPT")) {
             gActivity.runSingleRound();
+
+        } else if (result.equals("CANCEL")) {
+            this.cancel(true);
 
         }
         // topHalf.setBackgroundColor(Color.WHITE);

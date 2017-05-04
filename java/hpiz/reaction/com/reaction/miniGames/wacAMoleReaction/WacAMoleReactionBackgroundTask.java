@@ -43,14 +43,23 @@ public class WacAMoleReactionBackgroundTask extends AsyncTask<String, Integer, S
         Log.v(TAG, "Running background task");
         if (params[0].equals("SLEEP:1000")) {
             Log.v("backgroundTask", "Running background sleep");
+            if (this.isCancelled()) {
+                return "CANCEL";
+            }
             try {
                 Thread.sleep(400);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            if (this.isCancelled()) {
+                return "CANCEL";
+            }
 
             return "SLEPT";
         } else {
+            if (this.isCancelled()) {
+                return "CANCEL";
+            }
             Log.v(TAG, "Running background game wait");
 
             try {
@@ -58,7 +67,9 @@ public class WacAMoleReactionBackgroundTask extends AsyncTask<String, Integer, S
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
+            if (this.isCancelled()) {
+                return "CANCEL";
+            }
 
             Random r = new Random();
             r.setSeed((long) 15);
@@ -68,7 +79,9 @@ public class WacAMoleReactionBackgroundTask extends AsyncTask<String, Integer, S
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
+            if (this.isCancelled()) {
+                return "CANCEL";
+            }
             return "GAME:NEXTSTEP";
         }
     }
@@ -88,6 +101,9 @@ public class WacAMoleReactionBackgroundTask extends AsyncTask<String, Integer, S
         } else if (result.equals("SLEPT")) {
             gActivity.hideSelectedMoles();
             gActivity.runSingleRound();
+
+        } else if (result.equals("CANCEL")) {
+            this.cancel(true);
 
         }
         // topHalf.setBackgroundColor(Color.WHITE);
